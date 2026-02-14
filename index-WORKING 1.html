@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blend & Bloom - Dallas Smoothie Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Blend & Bloom</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#ai-recommender" onclick="scrollTo('ai-recommender'); return false;">AI Recommender</a></li>
+                <li><a href="#menu" onclick="scrollTo('menu'); return false;">Menu</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button class="cart-button" onclick="toggleCart()">
+                🛒 Cart (<span id="cartCount">0</span>)
+            </button>
+        </div>
+        
+        <!-- Shopping Cart Dropdown -->
+        <div class="cart-dropdown" id="cartDropdown">
+            <div class="cart-header">
+                <h3>Your Order</h3>
+                <button class="close-cart" onclick="toggleCart()">✕</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Your Perfect</span>
+                    <span class="title-line highlight">Smoothie</span>
+                    <span class="title-line">Powered by AI</span>
+                </h1>
+                <p class="hero-subtitle">Dallas's first AI-driven smoothie bar.</p>
+                <div class="hero-cta">
+                    <button class="primary-btn" onclick="scrollTo('ai-recommender')">
+                        Get AI Recommendations →
+                    </button>
+                    <button class="secondary-btn" onclick="scrollTo('menu')">
+                        View Menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-intro">
+                <h2>Experience Blend & Bloom</h2>
+            </div>
+            <div class="video-wrapper">
+                <video controls style="width: 100%; border-radius: 20px;">
+                    <source src="smoothie-video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Recommender Section -->
+    <section id="ai-recommender" class="ai-section">
+        <div class="ai-container">
+            <div class="ai-header">
+                <span class="ai-badge">✨ AI-POWERED</span>
+                <h2>Find Your Perfect Blend</h2>
+                <p>Answer a few questions and get your ideal smoothie</p>
+            </div>
+
+            <div class="ai-recommender">
+                <div class="question-container" id="questionContainer">
+                    <div class="question active" data-question="1">
+                        <h3>What's your primary goal?</h3>
+                        <div class="options">
+                            <button class="option-btn" onclick="selectOption(this, 'goal', 'energy')">
+                                <span class="option-icon">⚡</span>
+                                <span class="option-text">Boost Energy</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'goal', 'immunity')">
+                                <span class="option-icon">🛡️</span>
+                                <span class="option-text">Strengthen Immunity</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'goal', 'recovery')">
+                                <span class="option-icon">💪</span>
+                                <span class="option-text">Post-Workout Recovery</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'goal', 'wellness')">
+                                <span class="option-icon">🧘</span>
+                                <span class="option-text">General Wellness</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="question" data-question="2">
+                        <h3>Any dietary preferences?</h3>
+                        <div class="options">
+                            <button class="option-btn" onclick="selectOption(this, 'dietary', 'none')">
+                                <span class="option-text">No Restrictions</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'dietary', 'vegan')">
+                                <span class="option-text">Vegan</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'dietary', 'keto')">
+                                <span class="option-text">Keto-Friendly</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'dietary', 'protein')">
+                                <span class="option-text">High Protein</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="question" data-question="3">
+                        <h3>Flavor preference?</h3>
+                        <div class="options">
+                            <button class="option-btn" onclick="selectOption(this, 'flavor', 'tropical')">
+                                <span class="option-icon">🥥</span>
+                                <span class="option-text">Tropical & Sweet</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'flavor', 'berry')">
+                                <span class="option-icon">🫐</span>
+                                <span class="option-text">Berry Blast</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'flavor', 'green')">
+                                <span class="option-icon">🥬</span>
+                                <span class="option-text">Green & Earthy</span>
+                            </button>
+                            <button class="option-btn" onclick="selectOption(this, 'flavor', 'citrus')">
+                                <span class="option-icon">🍊</span>
+                                <span class="option-text">Citrus Zing</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-results" id="aiResults" style="display: none;">
+                    <div class="results-header">
+                        <h3>Your AI-Recommended Smoothie</h3>
+                        <button class="reset-btn" onclick="resetAI()">Start Over</button>
+                    </div>
+                    <div id="recommendationContent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="menu-container">
+            <div class="menu-header">
+                <h2>Our Signature Smoothies</h2>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-image tropical-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Dallas Sunrise</h3>
+                        <p class="menu-description">Mango, pineapple, coconut water, turmeric, ginger.</p>
+                        <div class="menu-footer">
+                            <span class="price">$8.50</span>
+                            <button class="add-btn" onclick="addToCart('Dallas Sunrise', 8.50)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image berry-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Antioxidant Armor</h3>
+                        <p class="menu-description">Blueberries, açaí, strawberries, banana, almond milk.</p>
+                        <div class="menu-footer">
+                            <span class="price">$9.00</span>
+                            <button class="add-btn" onclick="addToCart('Antioxidant Armor', 9.00)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image green-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Green Machine</h3>
+                        <p class="menu-description">Spinach, kale, green apple, cucumber, lemon, spirulina.</p>
+                        <div class="menu-footer">
+                            <span class="price">$8.00</span>
+                            <button class="add-btn" onclick="addToCart('Green Machine', 8.00)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image protein-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Protein Power</h3>
+                        <p class="menu-description">Peanut butter, banana, oats, plant protein, cacao, dates.</p>
+                        <div class="menu-footer">
+                            <span class="price">$9.50</span>
+                            <button class="add-btn" onclick="addToCart('Protein Power', 9.50)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image citrus-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Citrus Spark</h3>
+                        <p class="menu-description">Orange, grapefruit, carrot, ginger, cayenne.</p>
+                        <div class="menu-footer">
+                            <span class="price">$7.50</span>
+                            <button class="add-btn" onclick="addToCart('Citrus Spark', 7.50)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-image pink-gradient"></div>
+                    <div class="menu-item-content">
+                        <h3>Beauty Bloom</h3>
+                        <p class="menu-description">Dragon fruit, raspberry, chia seeds, coconut milk, collagen.</p>
+                        <div class="menu-footer">
+                            <span class="price">$10.00</span>
+                            <button class="add-btn" onclick="addToCart('Beauty Bloom', 10.00)">Add to Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // ALL JAVASCRIPT IS HERE - INLINE!
+    var cart = [];
+
+    function addToCart(name, price) {
+        console.log('Adding:', name, price);
+        var found = false;
+        for (var i = 0; i < cart.length; i++) {
+            if (cart[i].name === name) {
+                cart[i].quantity++;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cart.push({name: name, price: price, quantity: 1});
+        }
+        updateCart();
+        alert('✓ ' + name + ' added to cart!');
+    }
+
+    function updateCart() {
+        var total = 0;
+        var count = 0;
+        for (var i = 0; i < cart.length; i++) {
+            count += cart[i].quantity;
+            total += cart[i].price * cart[i].quantity;
+        }
+        
+        document.getElementById('cartCount').textContent = count;
+        document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+        
+        var html = '';
+        if (cart.length === 0) {
+            html = '<p class="empty-cart">Your cart is empty</p>';
+        } else {
+            for (var i = 0; i < cart.length; i++) {
+                html += '<div class="cart-item">';
+                html += '<div class="cart-item-info">';
+                html += '<h4>' + cart[i].name + '</h4>';
+                html += '<p>$' + cart[i].price.toFixed(2) + ' × ' + cart[i].quantity + '</p>';
+                html += '</div>';
+                html += '<button class="remove-btn" onclick="removeItem(' + i + ')">Remove</button>';
+                html += '</div>';
+            }
+        }
+        document.getElementById('cartItems').innerHTML = html;
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function toggleCart() {
+        var dropdown = document.getElementById('cartDropdown');
+        if (dropdown.style.display === 'flex') {
+            dropdown.style.display = 'none';
+        } else {
+            dropdown.style.display = 'flex';
+        }
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        var total = 0;
+        var items = '';
+        for (var i = 0; i < cart.length; i++) {
+            items += cart[i].quantity + 'x ' + cart[i].name + '\n';
+            total += cart[i].price * cart[i].quantity;
+        }
+        alert('Order Summary:\n\n' + items + '\nTotal: $' + total.toFixed(2) + '\n\nThank you!');
+        cart = [];
+        updateCart();
+        toggleCart();
+    }
+
+    function scrollTo(id) {
+        document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+    }
+
+    // Initialize
+    updateCart();
+
+    // AI RECOMMENDER
+    var userPrefs = {goal: '', dietary: '', flavor: ''};
+    var currentQ = 1;
+
+    function selectOption(btn, type, value) {
+        console.log('Selected:', type, value);
+        userPrefs[type] = value;
+        
+        // Highlight selected
+        var buttons = btn.parentElement.querySelectorAll('.option-btn');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('selected');
+        }
+        btn.classList.add('selected');
+        
+        // Move to next question or show result
+        setTimeout(function() {
+            if (currentQ < 3) {
+                document.querySelector('[data-question="' + currentQ + '"]').classList.remove('active');
+                currentQ++;
+                document.querySelector('[data-question="' + currentQ + '"]').classList.add('active');
+            } else {
+                showRecommendation();
+            }
+        }, 300);
+    }
+
+    function showRecommendation() {
+        document.getElementById('questionContainer').style.display = 'none';
+        document.getElementById('aiResults').style.display = 'block';
+        
+        var smoothies = {
+            'energy_tropical': {
+                name: 'Dallas Sunrise Energizer',
+                desc: 'Packed with tropical fruits and natural energy boosters.',
+                ingredients: ['Mango', 'Pineapple', 'Coconut Water', 'Ginger', 'Turmeric'],
+                calories: '245', protein: '3g', fiber: '4g',
+                emoji: '🌅', color: 'linear-gradient(135deg, #FF6B35, #FFC857)'
+            },
+            'immunity_berry': {
+                name: 'Immune Shield Berry Blast',
+                desc: 'Antioxidant powerhouse to strengthen your immune system.',
+                ingredients: ['Blueberries', 'Açaí', 'Strawberries', 'Banana', 'Almond Milk'],
+                calories: '280', protein: '5g', fiber: '7g',
+                emoji: '🫐', color: 'linear-gradient(135deg, #FF006E, #5A189A)'
+            },
+            'recovery_protein': {
+                name: 'Muscle Recovery Pro',
+                desc: 'Protein-rich blend for post-workout recovery.',
+                ingredients: ['Peanut Butter', 'Banana', 'Oats', 'Plant Protein', 'Cacao'],
+                calories: '420', protein: '25g', fiber: '8g',
+                emoji: '💪', color: 'linear-gradient(135deg, #5A189A, #FF6B35)'
+            },
+            'wellness_green': {
+                name: 'Green Wellness Elixir',
+                desc: 'Nutrient-dense green smoothie that alkalizes your body.',
+                ingredients: ['Spinach', 'Kale', 'Green Apple', 'Cucumber', 'Spirulina'],
+                calories: '180', protein: '4g', fiber: '6g',
+                emoji: '🥬', color: 'linear-gradient(135deg, #00D084, #3A86FF)'
+            }
+        };
+        
+        var key = userPrefs.goal + '_' + userPrefs.flavor;
+        var rec = smoothies[key] || smoothies['energy_tropical'];
+        
+        var ingredList = '';
+        for (var i = 0; i < rec.ingredients.length; i++) {
+            ingredList += '<li>' + rec.ingredients[i] + '</li>';
+        }
+        
+        var html = '<div class="recommendation-card">';
+        html += '<div class="rec-visual">';
+        html += '<div class="smoothie-illustration" style="background: ' + rec.color + '; width: 100%; height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 8rem;">' + rec.emoji + '</div>';
+        html += '</div>';
+        html += '<div class="rec-details">';
+        html += '<h4>' + rec.name + '</h4>';
+        html += '<p>' + rec.desc + '</p>';
+        html += '<div class="ingredients"><h5>Ingredients:</h5><ul>' + ingredList + '</ul></div>';
+        html += '<div class="nutrition"><h5>Nutrition:</h5>';
+        html += '<p>Calories: ' + rec.calories + ' | Protein: ' + rec.protein + ' | Fiber: ' + rec.fiber + '</p></div>';
+        html += '<button class="order-btn" onclick="addToCart(\'' + rec.name + '\', 9.00)">Order This Smoothie - $9.00</button>';
+        html += '</div></div>';
+        
+        document.getElementById('recommendationContent').innerHTML = html;
+    }
+
+    function resetAI() {
+        userPrefs = {goal: '', dietary: '', flavor: ''};
+        currentQ = 1;
+        document.getElementById('aiResults').style.display = 'none';
+        document.getElementById('questionContainer').style.display = 'block';
+        
+        var questions = document.querySelectorAll('.question');
+        for (var i = 0; i < questions.length; i++) {
+            questions[i].classList.remove('active');
+            var buttons = questions[i].querySelectorAll('.option-btn');
+            for (var j = 0; j < buttons.length; j++) {
+                buttons[j].classList.remove('selected');
+            }
+        }
+        document.querySelector('[data-question="1"]').classList.add('active');
+    }
+    </script>
+</body>
+</html>
